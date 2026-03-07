@@ -52,7 +52,7 @@ function App() {
                   {/* TEMPRETURE */}
                   <div>
                     <Typography variant="h1" style={{ textAlign: 'right' }}>
-                      38
+                      16
                     </Typography>
                     {/* TODO: TEMP IMAGE */}
 
