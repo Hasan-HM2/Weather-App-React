@@ -14,7 +14,11 @@ import CloudIcon from '@mui/icons-material/Cloud';
 
 // Libreries
 import axios from 'axios';
+import 'moment/min/locales'
+import moment from 'moment';
+moment.locale('ar');
 
+// Theme
 const theme = createTheme({
   typography: {
     fontFamily: ["IBM"]
@@ -24,31 +28,38 @@ const theme = createTheme({
 let cancelAxios = null
 
 function App() {
-  const [temp, setTemp] = useState(null)
-  const [maxTemp, setMaxTemp] = useState(null)
-  const [minTemp, setMinTemp] = useState(null)
-  const [description, setDescription] = useState("")
+  const [dateAndTime, setDateAndTime] = useState("")
+  const [weather, setWeather] = useState({
+    temp: null,
+    maxTemp: null,
+    minTemp: null,
+    description: "",
+    icon: null
+  })
 
   useEffect(() => {
-    axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=84a13e10c6abc34071a954d4e4dd06db', 
+    setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
+    axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=84a13e10c6abc34071a954d4e4dd06db',
       {
-        cancelToken: new axios.CancelToken((c)=> {
+        cancelToken: new axios.CancelToken((c) => {
           cancelAxios = c
         })
       }
     )
       .then((response) => {
         const responseTemp = Math.round(response.data.main.temp - 272.15)
-        setTemp(responseTemp)
-
         const responseMaxTemp = Math.round(response.data.main.temp_max - 272.15)
-        setMaxTemp(responseMaxTemp)
-
         const responseMinTemp = Math.round(response.data.main.temp_min - 272.15)
-        setMinTemp(responseMinTemp)
-
         const responseDescription = response.data.weather[0].description
-        setDescription(responseDescription)
+        const responseIcon = response.data.weather[0].icon
+
+        setWeather({
+          temp: responseTemp,
+          maxTemp: responseMaxTemp,
+          minTemp: responseMinTemp,
+          description: responseDescription,
+          icon: `https://openweathermap.org/payload/api/media/file/${responseIcon}%402x.png`
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -82,8 +93,8 @@ function App() {
                   <Typography variant="h2" style={{ fontWeight: '600' }} >
                     جبلة
                   </Typography>
-                  <Typography variant="h5" >
-                    السبت 21/2/2026
+                  <Typography variant="h6" >
+                    {dateAndTime}
                   </Typography>
                 </div>
                 {/* ==== CITY & TIME ==== */}
@@ -95,18 +106,20 @@ function App() {
 
                   {/* TEMPRETURE */}
                   <div>
-                    <Typography variant="h1" style={{ textAlign: 'right' }}>
-                      {temp}
-                    </Typography>
-                    {/* TODO: TEMP IMAGE */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography variant="h1" style={{ textAlign: 'right' }}>
+                        {weather.temp}
+                      </Typography>
 
+                      <img src={weather.icon} alt="weather icon" />
+                    </div>
                     {/* === TEMPRETURE ==== */}
                     <Typography variant="h5" style={{ textAlign: 'right' }}>
-                      {description}
+                      {weather.description}
                     </Typography>
 
                     <Typography variant="h7" style={{ textAlign: 'right' }}>
-                      الصغرى: {minTemp} | الكبرى: {maxTemp}
+                      الصغرى: {weather.minTemp} | الكبرى: {weather.maxTemp}
                     </Typography>
                   </div>
 
