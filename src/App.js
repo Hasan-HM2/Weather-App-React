@@ -28,6 +28,7 @@ const theme = createTheme({
 let cancelAxios = null
 
 function App() {
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState('ar')
   const [dateAndTime, setDateAndTime] = useState("")
@@ -60,7 +61,7 @@ function App() {
   // == handle language translate function == 
   useEffect(() => {
     setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
-    axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=84a13e10c6abc34071a954d4e4dd06db',
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=${apiKey}`,
       {
         cancelToken: new axios.CancelToken((c) => {
           cancelAxios = c
