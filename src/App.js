@@ -123,7 +123,7 @@ function App() {
                 <hr />
 
                 {/* DEGREE & DESCRIPITON */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'rtl' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: language === 'ar' ? 'rtl' : 'ltr' }}>
 
                   {/* TEMPRETURE */}
                   <div>
