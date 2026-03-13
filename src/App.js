@@ -39,7 +39,7 @@ function App() {
     description: "",
     icon: null
   })
-
+  moment.locale('ar')
 
   // handle language translate function
   function handleTranslate() {
