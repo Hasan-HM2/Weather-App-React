@@ -58,7 +58,7 @@ function App() {
           maxTemp: responseMaxTemp,
           minTemp: responseMinTemp,
           description: responseDescription,
-          icon: `https://openweathermap.org/payload/api/media/file/${responseIcon}%402x.png`
+          icon: `https://openweathermap.org/img/wn/${responseIcon}@2x.png`
         })
       })
       .catch((error) => {
@@ -106,26 +106,26 @@ function App() {
 
                   {/* TEMPRETURE */}
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className='Temp' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="h1" style={{ textAlign: 'right' }}>
                         {weather.temp}
                       </Typography>
 
-                      <img src={weather.icon} alt="weather icon" />
+                      <img className='weatherIcon' src={weather.icon} alt="weather icon" />
                     </div>
                     {/* === TEMPRETURE ==== */}
                     <Typography variant="h5" style={{ textAlign: 'right' }}>
                       {weather.description}
                     </Typography>
 
-                    <Typography variant="h7" style={{ textAlign: 'right' }}>
+                    <Typography variant="h7" style={{ textAlign: 'right', marginTop: '20px' }}>
                       الصغرى: {weather.minTemp} | الكبرى: {weather.maxTemp}
                     </Typography>
                   </div>
 
                   {/* ICON */}
                   <div>
-                    <CloudIcon style={{ fontSize: '220px' }} />
+                    <CloudIcon className='CloudIcon' style={{ fontSize: '220px' }} />
                   </div>
                   {/* ==== ICON ==== */}
                 </div>

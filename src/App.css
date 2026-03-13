@@ -1,16 +1,50 @@
 .App {
   text-align: center;
   margin: 0;
-  padding: 0;;
+  padding: 0;
 }
 
-.card { 
+.card {
   padding: 20px;
   border-radius: 16px;
   background-color: rgb(0, 0, 136);
   color: wheat;
-  box-shadow: 0px 8px 10px rgba(0, 0,  0, 0.5);
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 90%;
+  }
+
+  .CloudIcon {
+    font-size: 130px !important;
+  }
+
+  .city-time {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 5px !important;
+  }
+
+  .city-time h2 {
+    font-size: 2.5rem !important;
+  }
+
+  .city-time h6 {
+    font-size: 0.9rem !important;
+  }
+
+  .Temp h1 {
+    font-size: 5.1rem !important;
+  }
+
+  .weatherIcon {
+    width: 80px !important;
+  }
 }
 
 /* Custom Fonts */
