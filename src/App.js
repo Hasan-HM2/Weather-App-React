@@ -14,9 +14,9 @@ import CloudIcon from '@mui/icons-material/Cloud';
 
 // Libreries
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import 'moment/min/locales'
 import moment from 'moment';
-moment.locale('ar');
 
 // Theme
 const theme = createTheme({
@@ -28,6 +28,8 @@ const theme = createTheme({
 let cancelAxios = null
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState('ar')
   const [dateAndTime, setDateAndTime] = useState("")
   const [weather, setWeather] = useState({
     temp: null,
@@ -37,6 +39,25 @@ function App() {
     icon: null
   })
 
+
+  // handle language translate function
+  function handleTranslate() {
+    if (language === 'en') {
+      setLanguage('ar')
+      i18n.changeLanguage("ar")
+      moment.locale('ar')
+      setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
+
+    }
+    else if (language === 'ar') {
+      setLanguage('en')
+      i18n.changeLanguage("en")
+      moment.locale('en')
+      setDateAndTime(moment().format("dddd, DD/MM/YYYY, h:mm a"))
+    }
+
+  }
+  // == handle language translate function == 
   useEffect(() => {
     setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
     axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=84a13e10c6abc34071a954d4e4dd06db',
@@ -81,7 +102,7 @@ function App() {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}>
 
             {/* Card */}
@@ -89,9 +110,9 @@ function App() {
               {/* Content */}
               <div>
                 {/* CITY & TIME */}
-                <div className='city-time' style={{ direction: 'rtl', display: 'flex', alignItems: 'end', gap: '20px' }}>
+                <div className='city-time' style={{ direction: language === 'ar' ? 'rtl' : 'ltr', display: 'flex', alignItems: 'end', gap: '20px' }}>
                   <Typography variant="h2" style={{ fontWeight: '600' }} >
-                    جبلة
+                    {t("Jableh")}
                   </Typography>
                   <Typography variant="h6" >
                     {dateAndTime}
@@ -115,12 +136,17 @@ function App() {
                     </div>
                     {/* === TEMPRETURE ==== */}
                     <Typography variant="h5" style={{ textAlign: 'right' }}>
-                      {weather.description}
+                      {t(weather.description)}
                     </Typography>
 
-                    <Typography variant="h7" style={{ textAlign: 'right', marginTop: '20px' }}>
-                      الصغرى: {weather.minTemp} | الكبرى: {weather.maxTemp}
-                    </Typography>
+                    {/* MIN & MAX */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <h5>{t("min")}: {weather.minTemp}</h5>
+                      <h5> | </h5>
+                      <h5>{t('max')}: {weather.maxTemp}</h5>
+                    </div>
+                    {/* ===MIN & MAX=== */}
+
                   </div>
 
                   {/* ICON */}
@@ -144,7 +170,9 @@ function App() {
               width: '100%',
               marginTop: '20px'
             }}>
-              <Button variant="text" style={{ color: 'white', fontSize: '18px' }}>انكليزي</Button>
+              <Button variant="text" style={{ color: 'white', fontSize: '18px' }} onClick={handleTranslate}>
+                {language === 'en' ? "Arabic" : "إنكليزي"}
+              </Button>
             </div>
             {/* ==== TRANSLATION BUTTON ==== */}
 

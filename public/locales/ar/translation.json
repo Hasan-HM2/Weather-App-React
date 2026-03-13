@@ -1,0 +1,20 @@
+{
+  "Jableh": "جبلة",
+  "min": "الصغرى",
+  "max": "الكبرى",
+  "clear sky": "سماء صافية",
+  "few clouds": "غيوم قليلة",
+  "scattered clouds": "غيوم متفرقة",
+  "broken clouds": "غيوم متقطعة",
+  "shower rain": "أمطار متفرقة",
+  "rain": "ممطر",
+  "thunderstorm": "عاصفة رعدية",
+  "snow": "ثلج",
+  "mist": "ضباب",
+  "fog": "ضباب",
+  "haze": "شبورة",
+  "overcast clouds": "غيوم كثيفة",
+  "light rain": "أمطار خفيفة",
+  "moderate rain": "أمطار متوسطة",
+  "heavy rain": "أمطار غزيرة"
+}
