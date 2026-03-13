@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import 'moment/min/locales'
 import moment from 'moment';
+moment.locale('ar')
 
 // Theme
 const theme = createTheme({
@@ -59,7 +60,6 @@ function App() {
   }
   // == handle language translate function == 
   useEffect(() => {
-    moment.locale('ar')
     setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=${apiKey}`,
       {
