@@ -63,6 +63,9 @@ function App() {
   useEffect(() => {
     moment.locale('ar')
     setDateAndTime(moment().format("dddd, YYYY/MM/DD, mm:h a"))
+  }, [])
+
+  useEffect(() => {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=35.29&lon=36.04&appid=${apiKey}`,
       {
         cancelToken: new axios.CancelToken((c) => {
@@ -92,7 +95,7 @@ function App() {
     return () => {
       cancelAxios()
     }
-  }, [])
+  }, [apiKey])
 
 
   return (
